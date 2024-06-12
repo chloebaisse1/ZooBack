@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Arcadia Zoo - Horaires{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+    <h1> Les Horaires</h1>
+    <a href="{{ path('horaire.new') }}" class="btn btn-primary">Créer un horaire</a>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-4">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">jour</th>
+            <th scope="col">ouverture</th>
+            <th scope="col">fermeture</th>
+            <th scope="col">Edition</th>
+            <th scope="col">Suppression</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for horaire in horaires %}
+            <tr class="table-primary">
+                <th scope="row">{{ horaire.id }}</th>
+                <td>{{ horaire.jour }}</td>
+                <td>{{ horaire.ouverture }}</td>
+                <td>{{ horaire.fermeture }}</td>
+                <td>
+                    <a href="{{ path('horaire.edit', {id: horaire.id }) }}" class="btn btn-info">Modifier</a>
+                </td>
+                <td>
+                    <a href="{{ path('horaire.delete', {id: horaire.id }) }}" class="btn btn-warning">Supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

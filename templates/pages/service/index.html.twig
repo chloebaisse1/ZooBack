@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Arcadia Zoo - Services{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+        <h1> Les services</h1>
+        <a href="{{ path('service.new') }}" class="btn btn-primary">Créer un service</a>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success mt-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Numéro</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Déscription</th>
+                <th scope="col">Edition</th>
+                <th scope="col">Suppression</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for service in services %}
+            <tr class="table-primary">
+                <th scope="row">{{ service.id }}</th>
+                <td>{{ service.name }}</td>
+                <td>{{ service.description }}</td>
+                <td>
+                    <a href="{{ path('service.edit', {id: service.id }) }}" class="btn btn-info">Modifier</a>
+                </td>
+                <td>
+                   <a href="{{ path('service.delete', {id: service.id }) }}" class="btn btn-warning">Supprimer</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

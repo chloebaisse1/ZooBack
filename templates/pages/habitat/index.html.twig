@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Arcadia Zoo - Habitats {% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+    <h1> Les Habitats</h1>
+    <a href="{{ path('habitat.new') }}" class="btn btn-primary">Créer un habitat</a>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-4">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Numéro</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Description</th>
+            <th scope="col">Animaux</th>
+            <th scope="col">Edition</th>
+            <th scope="col">Suppression</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for habitat in habitats %}
+            <tr class="table-primary">
+                <th scope="row">{{ habitat.id }}</th>
+                <td>{{ habitat.name }}</td>
+                <td>{{ habitat.description }}</td>
+                <td>{{ habitat.animaux }}</td>
+                <td>
+                    <a href="{{ path('habitat.edit', {id: habitat.id }) }}" class="btn btn-info">Modifier</a>
+                </td>
+                <td>
+                    <a href="{{ path('habitat.delete', {id: habitat.id }) }}" class="btn btn-warning">Supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

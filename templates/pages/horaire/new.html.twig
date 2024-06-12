@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1 class="mt-4">Création d'un horaire</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success mt-4">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {{ form_start(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.jour) }}
+            {{ form_widget(form.jour) }}
+            <div class="form-error">
+                {{ form_errors(form.jour) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.ouverture) }}
+            {{ form_widget(form.ouverture) }}
+            <div class="form-error">
+                {{ form_errors(form.ouverture) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.fermeture) }}
+            {{ form_widget(form.fermeture) }}
+            <div class="form-error">
+                {{ form_errors(form.fermeture) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_row(form.submit)}}
+        </div>
+
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}
