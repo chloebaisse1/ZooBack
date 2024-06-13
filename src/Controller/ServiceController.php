@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ServiceController extends AbstractController
 {
     #[Route('/service', name: 'service.index', methods: ['GET'])]
-    public function index(ServiceRepository $repository, Request $request): Response
+    public function index(ServiceRepository $repository): Response
     {
         return $this->render('pages/service/index.html.twig', [
         'services' => $repository->findAll()
@@ -45,7 +45,7 @@ class ServiceController extends AbstractController
         ]);
     }
     #[Route('service/edition/{id}', name: 'service.edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN', 'ROLE_USER1')]
+    #[IsGranted("ROLE_ADMIN", "ROLE_USER2")]
     public function edit(Service $service, Request $request, EntityManagerInterface $manager) : Response
     {
         $form = $this->createForm(ServiceType::class, $service);
@@ -70,14 +70,6 @@ class ServiceController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function delete(EntityManagerInterface $manager, Service $service): Response
     {
-        if(!$service){
-            $this->addFlash(
-                'success',
-                'le service n\'existe pas !'
-            );
-
-            return $this->redirectToRoute('service.index');
-        }
         $manager->remove($service);
         $manager->flush();
 
