@@ -1,1 +1,25 @@
-{% extends "base.html.twig" %}
+{% extends "base.html.twig" %} {% block body %}
+
+<div class="container">
+  <h1 class="mt-4">Modification d'un Horaire</h1>
+
+  {% for message in app.flashes('success') %}
+  <div class="alert alert-success mt-4">
+    {{ message }}
+  </div>
+  {% endfor %}
+
+  {{ form_start(form) }}
+
+  <div class="form-group mt-4">
+    {{ form_row(form.jour) }}
+
+    {{ form_row(form.heureDebut) }}
+    {{ form_row(form.heureFin) }}
+  </div>
+  <div class="form-group">
+    <button type="submit">Enregistrer</button>
+  </div>
+</div>
+{{ form_end(form) }}
+{% endblock %}
