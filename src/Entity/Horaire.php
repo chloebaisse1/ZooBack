@@ -15,13 +15,13 @@ class Horaire
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $jour = null;
+    private ?string $Jour = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTime $ouverture = null;
+    private ?\DateTimeInterface $Heure_debut = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTime $fermeture = null;
+    private ?\DateTimeInterface $Heure_fin = null;
 
     public function getId(): ?int
     {
@@ -30,36 +30,36 @@ class Horaire
 
     public function getJour(): ?string
     {
-        return $this->jour;
+        return $this->Jour;
     }
 
-    public function setJour(string $jour): static
+    public function setJour(string $Jour): static
     {
-        $this->jour = $jour;
+        $this->Jour = $Jour;
 
         return $this;
     }
 
-    public function getOuverture(): ?\DateTimeInterface
+    public function getHeureDebut(): ?\DateTimeInterface
     {
-        return $this->ouverture;
+        return $this->Heure_debut;
     }
 
-    public function setOuverture(\DateTimeInterface $ouverture): static
+    public function setHeureDebut(\DateTimeInterface $Heure_debut): static
     {
-        $this->ouverture = $ouverture;
+        $this->Heure_debut = $Heure_debut;
 
         return $this;
     }
 
-    public function getFermeture(): ?\DateTimeInterface
+    public function getHeureFin(): ?\DateTimeInterface
     {
-        return $this->fermeture;
+        return $this->Heure_fin;
     }
 
-    public function setFermeture(\DateTimeInterface $fermeture): static
+    public function setHeureFin(\DateTimeInterface $Heure_fin): static
     {
-        $this->fermeture = $fermeture;
+        $this->Heure_fin = $Heure_fin;
 
         return $this;
     }

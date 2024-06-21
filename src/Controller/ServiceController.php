@@ -45,7 +45,8 @@ class ServiceController extends AbstractController
         ]);
     }
     #[Route('service/edition/{id}', name: 'service.edit', methods: ['GET', 'POST'])]
-    #[IsGranted("ROLE_ADMIN", "ROLE_USER2")]
+    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('ROLE_USER2')]
     public function edit(Service $service, Request $request, EntityManagerInterface $manager) : Response
     {
         $form = $this->createForm(ServiceType::class, $service);

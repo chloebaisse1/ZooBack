@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class HabitatController extends AbstractController
 {
     #[Route('/habitat', name: 'habitat.index', methods:['GET'])]
-    public function index(HabitatRepository $repository, Request $request): Response
+    public function index(HabitatRepository $repository): Response
     {
         return $this->render('pages/habitat/index.html.twig', [
             'habitats' => $repository->findAll()
@@ -70,14 +70,6 @@ class HabitatController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function delete(EntityManagerInterface $manager, Habitat $habitat): Response
     {
-        if(!$habitat){
-            $this->addFlash(
-                'success',
-                'l\'habitat n\'existe pas !'
-            );
-
-            return $this->redirectToRoute('habitat.index');
-        }
         $manager->remove($habitat);
         $manager->flush();
 
