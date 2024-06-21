@@ -37,7 +37,11 @@ class ServiceCrudController extends AbstractCrudController
         return $actions
             ->setPermission(Action::NEW, 'ROLE_ADMIN')
             ->setPermission(Action::DELETE, 'ROLE_ADMIN')
-            ->setPermission(Action::EDIT, 'ROLE_ADMIN');
+            ->setPermission(Action::EDIT, 'ROLE_ADMIN')
+            ->setPermission(Action::EDIT, 'ROLE_USER2')
+
+            ->disable(Action::DELETE, 'ROLE_USER1', 'ROLE_USER2')
+            ->disable(Action::NEW, 'ROLE_USER1', 'ROLE_USER2');
     }
 }
 

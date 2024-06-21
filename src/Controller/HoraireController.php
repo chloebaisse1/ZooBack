@@ -2,21 +2,19 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Horaire;
 use App\Form\HoraireType;
 use App\Repository\HoraireRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class HoraireController extends AbstractController
 {
     #[Route('/horaire', name: 'horaire.index', methods: ['GET'])]
-    public function index(HoraireRepository $repository, Request $request): Response
+    public function index(HoraireRepository $repository): Response
     {
         return $this->render('pages/horaire/index.html.twig', [
             'horaires' => $repository->findAll()
@@ -26,12 +24,10 @@ class HoraireController extends AbstractController
     public function new(Request $request, EntityManagerInterface $manager) : Response
     {
         $horaire = new Horaire();
-        $form = $this->createForm(DateTimeType::class, $horaire);
+        $form = $this->createForm(HoraireType::class, $horaire);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $service = $form->getData();
-
             $manager->persist($horaire);
             $manager->flush();
             $this->addFlash(
@@ -50,7 +46,7 @@ class HoraireController extends AbstractController
         $form = $this->createForm(HoraireType::class, $horaire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $service = $form->getData();
+            $horaire = $form->getData();
 
             $manager->persist($horaire);
             $manager->flush();
@@ -58,7 +54,7 @@ class HoraireController extends AbstractController
                 'success',
                 'L\'horaire a été modifiée avec succès !'
             );
-            return $this->redirectToRoute('service.index');
+            return $this->redirectToRoute('horaire.index');
         }
 
         return $this->render('pages/horaire/edit.html.twig',[
@@ -68,14 +64,6 @@ class HoraireController extends AbstractController
     #[Route('/horaire/suppression/{id}', name: 'horaire.delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, Horaire $horaire): Response
     {
-        if(!$horaire){
-            $this->addFlash(
-                'success',
-                'l\'horaire n\'existe pas !'
-            );
-
-            return $this->redirectToRoute('horaire.index');
-        }
         $manager->remove($horaire);
         $manager->flush();
 
@@ -86,4 +74,5 @@ class HoraireController extends AbstractController
 
         return $this->redirectToRoute('horaire.index');
     }
+
 }
